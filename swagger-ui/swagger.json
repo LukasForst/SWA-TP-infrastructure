@@ -1,0 +1,152 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "version" : "1.0.0",
+    "title" : "SWA Cars API",
+    "description" : ""
+  },
+  "paths" : {
+    "/user" : {
+      "get" : {
+        "summary" : "Get current user",
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns Current User",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "User is not authorized"
+          }
+        }
+      }
+    },
+    "/user/register" : {
+      "put" : {
+        "summary" : "Create user",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserRegistration"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Creates new user",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserAuthenticated"
+                }
+              }
+            }
+          },
+          "409" : {
+            "description" : "User exists"
+          }
+        }
+      }
+    },
+    "/user/login" : {
+      "post" : {
+        "summary" : "Logs user into the system",
+        "requestBody" : {
+          "description" : "Optional description in *Markdown*",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserLogin"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserAuthenticated"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Invalid username/password supplied"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "securitySchemes" : {
+      "bearerAuth" : {
+        "type" : "http",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "schemas" : {
+      "UserLogin" : {
+        "properties" : {
+          "email" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          }
+        }
+      },
+      "UserRegistration" : {
+        "properties" : {
+          "first_name" : {
+            "type" : "string"
+          },
+          "last_name" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          }
+        }
+      },
+      "UserAuthenticated" : {
+        "properties" : {
+          "status" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "auth_token" : {
+            "type" : "string"
+          }
+        }
+      },
+      "User" : {
+        "properties" : {
+          "user_id" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}

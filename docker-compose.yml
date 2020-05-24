@@ -1,23 +1,39 @@
 version: '3.7'
 services:
+  # -------------------- infrastructure
   nginx:
-    image: nginx:1.17.10-alpine
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    image: swa-tp-nginx
     ports:
       - 80:80
-
-  apple:
-    image: hashicorp/http-echo
-    command: -text="apple"
-
-  orange:
-    image: hashicorp/http-echo
-    command: -text="orange"
+    depends_on:
+      - user-service
+      - swagger-ui
 
   swagger-ui:
-    image: swaggerapi/swagger-ui:v3.25.4
+    build:
+      context: swagger-ui
+      dockerfile: Dockerfile
+    image: swa-tp-swagger-ui
+
+  # -------------------- user service
+  user-service:
+    image: lukaswire/swa-user-service
+    env_file:
+      - envs/common.env
+      - envs/user-service.env
+    depends_on:
+      - user-service-db
+
+  user-service-db:
+    image: postgres:12.2
+    env_file:
+      - envs/user-service.env
     volumes:
-      - ./swagger.json:/app/swagger.json
-    environment:
-      SWAGGER_JSON: /app/swagger.json
+      - swa-user-service-db-vol:/var/lib/postgresql/data/
+
+  # -------------------- other services
+volumes:
+  swa-user-service-db-vol:
