@@ -1,6 +1,34 @@
 version: '3.7'
 services:
   # -------------------- infrastructure
+  fluentd:
+    build: ./fluentd
+    volumes:
+      - ./fluentd/conf:/fluentd/etc
+    links:
+      - "elasticsearch"
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    environment:
+      - "discovery.type=single-node"
+    expose:
+      - "9200"
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: kibana:7.6.0
+    links:
+      - "elasticsearch"
+    ports:
+      - "5601:5601"
+      
   nginx:
     build:
       context: nginx
@@ -10,6 +38,7 @@ services:
       - 80:80
     depends_on:
       - user-service
+      - email-service
       - swagger-ui
 
   swagger-ui:
@@ -26,6 +55,14 @@ services:
       - envs/user-service.env
     depends_on:
       - user-service-db
+      - elasticsearch
+      - kibana
+      - fluentd
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: user-service
 
   user-service-db:
     image: postgres:12.2
@@ -34,6 +71,26 @@ services:
     volumes:
       - swa-user-service-db-vol:/var/lib/postgresql/data/
 
+  # -------------------- email service
+  email-service:
+    image: filipbursik/email_service:latest
+    ports:
+      - 9753:9753
+    env_file:
+      - envs/email-service.env
+    depends_on:
+      - user-service-db
+      - elasticsearch
+      - kibana
+      - fluentd
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: email-service
+
   # -------------------- other services
+        
 volumes:
   swa-user-service-db-vol:
+  elasticsearch_data:
