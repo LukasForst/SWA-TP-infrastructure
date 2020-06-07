@@ -87,6 +87,28 @@
           }
         }
       }
+    },
+    "/email/send" : {
+      "post" : {
+        "summary" : "Send email to the user",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/EmailBody"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Successful operation"
+          },
+          "400" : {
+            "description" : "When JSON is not valid, or recipient, message or subject is not request body or if recipient email address is not valid"
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -143,6 +165,19 @@
             "type" : "string"
           },
           "email" : {
+            "type" : "string"
+          }
+        }
+      },
+      "EmailBody" : {
+        "properties" : {
+          "recipient" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "subject" : {
             "type" : "string"
           }
         }

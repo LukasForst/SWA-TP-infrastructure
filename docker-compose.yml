@@ -74,12 +74,9 @@ services:
   # -------------------- email service
   email-service:
     image: filipbursik/email_service:latest
-    ports:
-      - 9753:9753
     env_file:
       - envs/email-service.env
     depends_on:
-      - user-service-db
       - elasticsearch
       - kibana
       - fluentd
