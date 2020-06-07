@@ -11,6 +11,8 @@ services:
     depends_on:
       - user-service
       - swagger-ui
+      - ad-service
+
 
   swagger-ui:
     build:
@@ -35,5 +37,11 @@ services:
       - swa-user-service-db-vol:/var/lib/postgresql/data/
 
   # -------------------- other services
+
+  # -------------------- ad service
+  ad-service:
+    image: 19960701/swa-ads:latest
+    ports:
+      - 9698:9698
 volumes:
   swa-user-service-db-vol:
