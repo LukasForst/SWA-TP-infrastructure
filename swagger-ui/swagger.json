@@ -94,7 +94,7 @@
         "requestBody" : {
           "content" : {
             "application/json" : {
-              "schema" : {
+              "schema" : {                
                 "$ref" : "#/components/schemas/EmailBody"
               }
             }
@@ -106,6 +106,129 @@
           },
           "400" : {
             "description" : "When JSON is not valid, or recipient, message or subject is not request body or if recipient email address is not valid"
+          }
+        }
+      }
+    },
+    "/cars" : {
+      "get" : {
+        "summary" : "Get all cars",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Cars"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary": "Add new car",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Car"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Car"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/{carId}" : {
+      "get" : {
+        "parameters": [
+          {
+            "name": "carId",
+            "in": "path",
+            "description": "ID of car to return",
+            "required": true,
+            "schema" : {
+              "type": "integer"
+            }
+          }
+        ],
+        "summary" : "Get car by id",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Car"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "summary": "Delete  car",
+        "parameters": [
+          {
+            "name": "carId",
+            "in": "path",
+            "description": "ID of car to return",
+            "required": true,
+            "schema" : {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses" : {
+          "204" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "patch" : {
+        "summary": "Update car by id",
+        "parameters": [
+          {
+            "name": "carId",
+            "in": "path",
+            "description": "ID of car to return",
+            "required": true,
+            "schema" : {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Car"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Car"
+                }
+              }
+            }
           }
         }
       }
@@ -180,6 +303,28 @@
           "subject" : {
             "type" : "string"
           }
+        }
+      },
+      "Car" : {
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "photo" : {
+            "type" : "string"
+          },
+          "price" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "Cars": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Car"
         }
       }
     }
