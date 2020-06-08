@@ -41,6 +41,7 @@ services:
       - email-service
       - swagger-ui
       - ad-service
+      - tracer-service
 
   swagger-ui:
     build:
@@ -92,8 +93,49 @@ services:
     image: 19960701/swa-ads:latest
     env_file:
       - envs/ad-service.env
-  # -------------------- other services
+
+  # -------------------- tracer service
+  docker-mysql-db:
+    restart: always
+    container_name: docker-mysql-db
+    image: mysql
+    env_file:
+      - envs/tracer-mysql-db.env
+    volumes:
+      - ./sql/tracer_service_init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=root--execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 20s
+      retries: 10
+
+  tracer-service:
+    restart: on-failure
+    image: matijmic/swa-tracer-service
+    expose:
+      - "10222"
+    ports:
+      - 10222:10222
+    env_file:
+      - envs/common.env
+      - envs/tracer-service.env
+    depends_on:
+      - user-service-db
+      - docker-mysql-db
+      - user-service
+      - email-service
+      - elasticsearch
+      - kibana
+      - fluentd
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: tracer-service
         
 volumes:
   swa-user-service-db-vol:
   elasticsearch_data:
+  docker-mysql-db:
