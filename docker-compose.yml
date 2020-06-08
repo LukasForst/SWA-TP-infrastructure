@@ -40,6 +40,8 @@ services:
       - user-service
       - email-service
       - swagger-ui
+      - ad-service
+
 
   swagger-ui:
     build:
@@ -86,6 +88,13 @@ services:
         fluentd-address: localhost:24224
         tag: email-service
 
+  # -------------------- ad service
+  ad-service:
+    image: 19960701/swa-ads:latest
+    ports:
+      - 9698:9698
+    env_file:
+      - envs/ad-service.env
   # -------------------- other services
         
 volumes:
