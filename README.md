@@ -1,8 +1,13 @@
 # SWA TP infrastructure
 
 ## Infrastructure
+- [First repo](https://gitlab.fel.cvut.cz/bursifil/swa-semestral-project)
 * Nginx running as API Gateway and load balancer
 * Swagger UI container
+
+* Elasticsearch 
+* Kibana - Elasticsearch vizualizer
+* Fluentd - logging
 
 ## Services
 
