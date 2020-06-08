@@ -42,7 +42,6 @@ services:
       - swagger-ui
       - ad-service
 
-
   swagger-ui:
     build:
       context: swagger-ui
@@ -91,8 +90,6 @@ services:
   # -------------------- ad service
   ad-service:
     image: 19960701/swa-ads:latest
-    ports:
-      - 9698:9698
     env_file:
       - envs/ad-service.env
   # -------------------- other services
