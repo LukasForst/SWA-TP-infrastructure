@@ -103,8 +103,6 @@ services:
       - envs/tracer-mysql-db.env
     volumes:
       - ./sql/tracer_service_init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-    ports:
-      - "3306:3306"
     healthcheck:
       test: "/usr/bin/mysql --user=root --password=root--execute \"SHOW DATABASES;\""
       interval: 2s
@@ -116,8 +114,6 @@ services:
     image: matijmic/swa-tracer-service
     expose:
       - "10222"
-    ports:
-      - 10222:10222
     env_file:
       - envs/common.env
       - envs/tracer-service.env
