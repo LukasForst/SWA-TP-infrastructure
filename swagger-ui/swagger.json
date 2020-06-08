@@ -1,149 +1,151 @@
 {
-  "openapi" : "3.0.0",
-  "info" : {
-    "version" : "1.0.0",
-    "title" : "SWA Cars API",
-    "description" : ""
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "SWA Cars API",
+    "description": ""
   },
-  "paths" : {
-    "/user" : {
-      "get" : {
-        "summary" : "Get current user",
-        "security" : [ {
-          "bearerAuth" : [ ]
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Returns Current User",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/User"
+  "paths": {
+    "/user": {
+      "get": {
+        "summary": "Get current user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns Current User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
           },
-          "401" : {
-            "description" : "User is not authorized"
+          "401": {
+            "description": "User is not authorized"
           }
         }
       }
     },
-    "/user/register" : {
-      "put" : {
-        "summary" : "Create user",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/UserRegistration"
+    "/user/register": {
+      "put": {
+        "summary": "Create user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegistration"
               }
             }
           }
         },
-        "responses" : {
-          "200" : {
-            "description" : "Creates new user",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UserAuthenticated"
+        "responses": {
+          "200": {
+            "description": "Creates new user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserAuthenticated"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "User exists"
+          "409": {
+            "description": "User exists"
           }
         }
       }
     },
-    "/user/login" : {
-      "post" : {
-        "summary" : "Logs user into the system",
-        "requestBody" : {
-          "description" : "Optional description in *Markdown*",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/UserLogin"
+    "/user/login": {
+      "post": {
+        "summary": "Logs user into the system",
+        "requestBody": {
+          "description": "Optional description in *Markdown*",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
               }
             }
           }
         },
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UserAuthenticated"
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserAuthenticated"
                 }
               }
             }
           },
-          "401" : {
-            "description" : "Invalid username/password supplied"
+          "401": {
+            "description": "Invalid username/password supplied"
           }
         }
       }
     },
-    "/email/send" : {
-      "post" : {
-        "summary" : "Send email to the user",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {                
-                "$ref" : "#/components/schemas/EmailBody"
+    "/email/send": {
+      "post": {
+        "summary": "Send email to the user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailBody"
               }
             }
           }
         },
-        "responses" : {
-          "204" : {
-            "description" : "Successful operation"
+        "responses": {
+          "204": {
+            "description": "Successful operation"
           },
-          "400" : {
-            "description" : "When JSON is not valid, or recipient, message or subject is not request body or if recipient email address is not valid"
+          "400": {
+            "description": "When JSON is not valid, or recipient, message or subject is not request body or if recipient email address is not valid"
           }
         }
       }
     },
-    "/cars" : {
-      "get" : {
-        "summary" : "Get all cars",
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Cars"
+    "/cars": {
+      "get": {
+        "summary": "Get all cars",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cars"
                 }
               }
             }
           }
         }
       },
-      "post" : {
+      "post": {
         "summary": "Add new car",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Car"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
               }
             }
           }
         },
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Car"
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Car"
                 }
               }
             }
@@ -151,34 +153,34 @@
         }
       }
     },
-    "/cars/{carId}" : {
-      "get" : {
+    "/cars/{carId}": {
+      "get": {
         "parameters": [
           {
             "name": "carId",
             "in": "path",
             "description": "ID of car to return",
             "required": true,
-            "schema" : {
+            "schema": {
               "type": "integer"
             }
           }
         ],
-        "summary" : "Get car by id",
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Car"
+        "summary": "Get car by id",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Car"
                 }
               }
             }
           }
         }
       },
-      "delete" : {
+      "delete": {
         "summary": "Delete  car",
         "parameters": [
           {
@@ -186,18 +188,18 @@
             "in": "path",
             "description": "ID of car to return",
             "required": true,
-            "schema" : {
+            "schema": {
               "type": "integer"
             }
           }
         ],
-        "responses" : {
-          "204" : {
-            "description" : "successful operation"
+        "responses": {
+          "204": {
+            "description": "successful operation"
           }
         }
       },
-      "patch" : {
+      "patch": {
         "summary": "Update car by id",
         "parameters": [
           {
@@ -205,27 +207,282 @@
             "in": "path",
             "description": "ID of car to return",
             "required": true,
-            "schema" : {
+            "schema": {
               "type": "integer"
             }
           }
         ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Car"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
               }
             }
           }
         },
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Car"
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Car"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/offer/check": {
+      "post": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "Add or Edit offer",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "create or update offer",
+        "operationId": "createOrUpdateOffer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckRequestTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "403": {
+            "description": "Missing token"
+          }
+        }
+      }
+    },
+    "/offer/remove": {
+      "post": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "Remove offer",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "operationId": "removeOffer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RemoveOfferRequestTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "403": {
+            "description": "Missing token"
+          }
+        }
+      }
+    },
+    "/tracer/add": {
+      "post": {
+        "tags": [
+          "tracer"
+        ],
+        "summary": "Create tracer",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "operationId": "createTracer",
+        "requestBody": {
+          "description": "Created tracer object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTracerRequestTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "403": {
+            "description": "Missing token"
+          }
+        }
+      }
+    },
+    "/tracer/edit": {
+      "post": {
+        "tags": [
+          "tracer"
+        ],
+        "summary": "Edit tracer",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "operationId": "editTracer",
+        "requestBody": {
+          "description": "Updated tracer object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTracerRequestTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "403": {
+            "description": "Missing token"
+          },
+          "404": {
+            "description": "Tracer not found"
+          }
+        }
+      }
+    },
+    "/tracer/remove": {
+      "post": {
+        "tags": [
+          "tracer"
+        ],
+        "summary": "Remove tracer",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Remove tracer object",
+        "operationId": "removeTracer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RemoveRequestTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "403": {
+            "description": "Missing token"
+          }
+        }
+      }
+    },
+    "/tracer/{userId}": {
+      "get": {
+        "tags": [
+          "tracer"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "summary": "Get all tracers by userId",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tracers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tracer/tracerId/{tracerId}": {
+      "get": {
+        "tags": [
+          "tracer"
+        ],
+        "parameters": [
+          {
+            "name": "tracerId",
+            "in": "path",
+            "description": "Id of tracer",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "summary": "Get all cars by tracerId",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarInfos"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tracer/userId/{userId}": {
+      "get": {
+        "tags": [
+          "tracer"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of userId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "summary": "Get all cars by userId",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarInfos"
                 }
               }
             }
@@ -234,90 +491,90 @@
       }
     }
   },
-  "components" : {
-    "securitySchemes" : {
-      "bearerAuth" : {
-        "type" : "http",
-        "scheme" : "bearer",
-        "bearerFormat" : "JWT"
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     },
-    "schemas" : {
-      "UserLogin" : {
-        "properties" : {
-          "email" : {
-            "type" : "string"
+    "schemas": {
+      "UserLogin": {
+        "properties": {
+          "email": {
+            "type": "string"
           },
-          "password" : {
-            "type" : "string"
+          "password": {
+            "type": "string"
           }
         }
       },
-      "UserRegistration" : {
-        "properties" : {
-          "first_name" : {
-            "type" : "string"
+      "UserRegistration": {
+        "properties": {
+          "first_name": {
+            "type": "string"
           },
-          "last_name" : {
-            "type" : "string"
+          "last_name": {
+            "type": "string"
           },
-          "email" : {
-            "type" : "string"
+          "email": {
+            "type": "string"
           },
-          "password" : {
-            "type" : "string"
+          "password": {
+            "type": "string"
           }
         }
       },
-      "UserAuthenticated" : {
-        "properties" : {
-          "status" : {
-            "type" : "string"
+      "UserAuthenticated": {
+        "properties": {
+          "status": {
+            "type": "string"
           },
-          "message" : {
-            "type" : "string"
+          "message": {
+            "type": "string"
           },
-          "auth_token" : {
-            "type" : "string"
+          "auth_token": {
+            "type": "string"
           }
         }
       },
-      "User" : {
-        "properties" : {
-          "user_id" : {
-            "type" : "string"
+      "User": {
+        "properties": {
+          "user_id": {
+            "type": "string"
           },
-          "email" : {
-            "type" : "string"
+          "email": {
+            "type": "string"
           }
         }
       },
-      "EmailBody" : {
-        "properties" : {
-          "recipient" : {
-            "type" : "string"
+      "EmailBody": {
+        "properties": {
+          "recipient": {
+            "type": "string"
           },
-          "message" : {
-            "type" : "string"
+          "message": {
+            "type": "string"
           },
-          "subject" : {
-            "type" : "string"
+          "subject": {
+            "type": "string"
           }
         }
       },
-      "Car" : {
-        "properties" : {
-          "id" : {
-            "type" : "integer"
+      "Car": {
+        "properties": {
+          "id": {
+            "type": "integer"
           },
-          "name" : {
-            "type" : "string"
+          "name": {
+            "type": "string"
           },
-          "photo" : {
-            "type" : "string"
+          "photo": {
+            "type": "string"
           },
-          "price" : {
-            "type" : "integer"
+          "price": {
+            "type": "integer"
           }
         }
       },
@@ -325,6 +582,123 @@
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Car"
+        }
+      },
+      "CarInfo": {
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer"
+          }
+        }
+      },
+      "CarInfos": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CarInfo"
+        }
+      },
+      "Tracer": {
+        "properties": {
+          "userId": {
+            "type": "integer"
+          },
+          "tracerId": {
+            "type": "integer"
+          },
+          "priceFrom": {
+            "type": "integer"
+          },
+          "priceTo": {
+            "type": "integer"
+          },
+          "model": {
+            "type": "string"
+          }
+        }
+      },
+      "Tracers": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Tracer"
+        }
+      },
+      "CreateTracerRequestTO": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer"
+          },
+          "priceFrom": {
+            "type": "integer"
+          },
+          "priceTo": {
+            "type": "integer"
+          },
+          "model": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateTracerRequestTO": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer"
+          },
+          "tracerId": {
+            "type": "integer"
+          },
+          "priceFrom": {
+            "type": "integer"
+          },
+          "priceTo": {
+            "type": "integer"
+          },
+          "model": {
+            "type": "string"
+          }
+        }
+      },
+      "RemoveRequestTO": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer"
+          },
+          "tracerId": {
+            "type": "integer"
+          }
+        }
+      },
+      "CheckRequestTO": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer"
+          },
+          "carId": {
+            "type": "integer"
+          },
+          "price": {
+            "type": "integer"
+          },
+          "model": {
+            "type": "string"
+          }
+        }
+      },
+      "RemoveOfferRequestTO": {
+        "type": "object",
+        "properties": {
+          "carId": {
+            "type": "integer"
+          }
         }
       }
     }
