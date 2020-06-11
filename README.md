@@ -13,7 +13,7 @@
 
 ### User Service
 - [Repo](https://github.com/LukasForst/SWA-TP-user-service)
-- [Contract Tests](https://github.com/LukasForst/SWA-TP-user-service)
+- [Contract Tests](https://github.com/LukasForst/SWA-TP-user-service-contract-tests)
 
 ### Tracer Service
 - [Repo](https://github.com/MichalMatija/SWA-Tracer-Service)
